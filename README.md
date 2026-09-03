@@ -86,14 +86,28 @@ class Hamid:
 
 ### 🔥 Featured Projects — public
 
-<p align="center">
-  <a href="https://github.com/Daashamid/auto-wifi-biruni">
-    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=Daashamid&repo=auto-wifi-biruni&theme=tokyonight&hide_border=true&border_radius=10&show_owner=true" />
-  </a>
-  <a href="https://github.com/Daashamid/backlight-keyboard">
-    <img width="49%" src="https://github-readme-stats.vercel.app/api/pin/?username=Daashamid&repo=backlight-keyboard&theme=tokyonight&hide_border=true&border_radius=10&show_owner=true" />
-  </a>
-</p>
+<table>
+<tr>
+<td width="50%" align="center">
+<h3><a href="https://github.com/Daashamid/auto-wifi-biruni">📶 auto-wifi-biruni</a></h3>
+<sub>Python automation for WiFi login on Linux</sub>
+<br/><br/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" />
+<img src="https://img.shields.io/github/stars/Daashamid/auto-wifi-biruni?style=flat&color=00ff88&labelColor=000000" />
+<br/>
+<a href="https://github.com/Daashamid/auto-wifi-biruni">→ View code</a>
+</td>
+<td width="50%" align="center">
+<h3><a href="https://github.com/Daashamid/backlight-keyboard">⌨️ backlight-keyboard</a></h3>
+<sub>Linux keyboard backlight controller in Python</sub>
+<br/><br/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" />
+<img src="https://img.shields.io/github/stars/Daashamid/backlight-keyboard?style=flat&color=00ff88&labelColor=000000" />
+<br/>
+<a href="https://github.com/Daashamid/backlight-keyboard">→ View code</a>
+</td>
+</tr>
+</table>
 
 ---
 
@@ -115,16 +129,13 @@ class Hamid:
 ### 📊 GitHub DNA
 
 <p align="center">
-  <img width="49%" src="https://github-readme-stats.vercel.app/api?username=Daashamid&show_icons=true&theme=tokyonight&hide_border=true&border_radius=10&count_private=true&include_all_commits=true&rank_icon=github" />
-  <img width="49%" src="https://github-readme-stats.vercel.app/api/top-langs?username=Daashamid&layout=compact&theme=tokyonight&hide_border=true&border_radius=10&langs_count=6" />
+  <img width="49%" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Daashamid&theme=tokyonight" />
+  <img width="49%" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Daashamid&theme=tokyonight" />
 </p>
 
 <p align="center">
+  <img width="49%" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=Daashamid&theme=tokyonight" />
   <img width="60%" src="https://streak-stats.demolab.com/?user=Daashamid&theme=tokyonight&hide_border=true&border_radius=10" />
-</p>
-
-<p align="center">
-  <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=Daashamid&theme=tokyo-night&hide_border=true&area=true&custom_title=Contribution%20Graph" />
 </p>
 
 ---
