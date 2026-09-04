@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="240" viewBox="0 0 1000 240"
-     role="img" aria-label="HAMID.py — Python developer, Linux, learning networking">
-  <title>HAMID.py — Python developer · Linux · learning networking</title>
+     role="img" aria-label="HAMID — Python developer, Linux, learning networking">
+  <title>HAMID — Python developer · Linux · learning networking</title>
 
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -72,7 +72,7 @@
 
     <!-- one wordmark geometry, reused for the extrusion, the bloom and the shine mask,
          so the layers can never drift out of register -->
-    <text id="wm" class="wm" x="62" y="132">HAMID.py</text>
+<text id="wm" class="wm" x="62" y="132">HAMID</text>
     <clipPath id="wmclip"><use href="#wm"/></clipPath>
 
     <clipPath id="card"><rect width="1000" height="240" rx="16"/></clipPath>
@@ -155,8 +155,7 @@
     <use href="#wm" x="3"  y="3"  fill="#083d29"/>
     <use href="#wm" x="2"  y="2"  fill="#09452e"/>
     <use href="#wm" x="1"  y="1"  fill="#0a4d33"/>
-    <text class="wm" x="62" y="132"
-      ><tspan fill="#f0f6fc">HAMID</tspan><tspan fill="url(#accent)">.py</tspan></text>
+    <text class="wm" x="62" y="132" fill="#f0f6fc">HAMID</text>
     <g clip-path="url(#wmclip)">
       <rect class="shine" x="-240" y="70" width="200" height="90" fill="url(#gloss)"/>
     </g>
