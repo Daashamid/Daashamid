@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="assets/hero.svg" title="hamid@arch:~/profile — python first, everything else is homework" alt="HAMID.py — Python developer · Linux · learning networking" width="100%" />
+<img src="assets/hero.svg" title="hamid@arch:~/profile — python first, everything else is homework" alt="HAMID — Python developer · Linux · learning networking" width="100%" />
 
 <p>
-  <img title="Khorasan Razavi — UTC+03:30" alt="Neyshabour, Iran" src="https://img.shields.io/badge/NEYSHABOUR-IRAN-161b22?style=flat-square&logo=googlemaps&logoColor=00ff88&labelColor=0d1117" />
-  <img title="the only language I'd call solid" alt="Main language: Python" src="https://img.shields.io/badge/MAIN-python-161b22?style=flat-square&logo=python&logoColor=00ff88&labelColor=0d1117" />
-  <a href="https://t.me/Daashamid"><img title="fastest way to reach me" alt="Telegram — @Daashamid" src="https://img.shields.io/badge/@Daashamid-0d1117?style=flat-square&logo=telegram&logoColor=00c8ff" /></a>
-  <a href="https://x.com/Daashamid82"><img title="occasionally" alt="X — @Daashamid82" src="https://img.shields.io/badge/@Daashamid82-0d1117?style=flat-square&logo=x&logoColor=white" /></a>
+  <img title="Khorasan Razavi — UTC+03:30" alt="Neyshabour, Iran" src="assets/vendor/badge-location.svg" />
+  <img title="the only language I'd call solid" alt="Main language: Python" src="assets/vendor/badge-main.svg" />
+  <a href="https://t.me/Daashamid"><img title="fastest way to reach me" alt="Telegram — @Daashamid" src="assets/vendor/badge-telegram-top.svg" /></a>
+  <a href="https://x.com/Daashamid82"><img title="occasionally" alt="X — @Daashamid82" src="assets/vendor/badge-x-top.svg" /></a>
 </p>
 
 I write Python that removes small daily annoyances on Linux — captive portals, keyboard
@@ -61,9 +61,9 @@ class Hamid:
 
 <div align="center">
 
-<img title="80% — bots, automation, scripts that run at boot" alt="Python" src="https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=00ff88" />
-<img title="45% — daily driver, still learning the plumbing" alt="Linux" src="https://img.shields.io/badge/Linux-0d1117?style=for-the-badge&logo=linux&logoColor=00ff88" />
-<img title="35% — studying, not certified yet" alt="Network+" src="https://img.shields.io/badge/Network%2B-0d1117?style=for-the-badge&logo=cisco&logoColor=00ff88" />
+<img title="80% — bots, automation, scripts that run at boot" alt="Python" src="assets/vendor/badge-python.svg" />
+<img title="45% — daily driver, still learning the plumbing" alt="Linux" src="assets/vendor/badge-linux.svg" />
+<img title="35% — studying, not certified yet" alt="Network+" src="assets/vendor/badge-network.svg" />
 
 </div>
 
@@ -76,13 +76,13 @@ class Hamid:
 <div align="center">
 
 **What I actually reach for**<br/>
-<img height="52" title="python · bash · linux · git · github · vscode" alt="Python, Bash, Linux, Git, GitHub, VS Code" src="https://skillicons.dev/icons?i=python,bash,linux,git,github,vscode&theme=dark" />
+<img height="52" title="python · bash · linux · git · github · vscode" alt="Python, Bash, Linux, Git, GitHub, VS Code" src="assets/vendor/stack-core.svg" />
 
 **Can read and change, not yet fluent**<br/>
-<img height="52" title="html · css · c · c++" alt="HTML, CSS, C, C++" src="https://skillicons.dev/icons?i=html,css,c,cpp&theme=dark" />
+<img height="52" title="html · css · c · c++" alt="HTML, CSS, C, C++" src="assets/vendor/stack-basic.svg" />
 
 **Repos of mine use these — because AI wrote them, not me**<br/>
-<img height="52" title="rust · kotlin · dart — vibe-coded, not a skill" alt="Rust, Kotlin, Dart" src="https://skillicons.dev/icons?i=rust,kotlin,dart&theme=dark" />
+<img height="52" title="rust · kotlin · dart — vibe-coded, not a skill" alt="Rust, Kotlin, Dart" src="assets/vendor/stack-vibe.svg" />
 
 </div>
 
@@ -252,13 +252,13 @@ them on my behalf — including me, without a commit. Click a heading to open it
 <div align="center">
 
 <a href="https://t.me/Daashamid">
-  <img alt="Telegram — @Daashamid" title="fastest way to reach me" src="https://img.shields.io/badge/Telegram-%40Daashamid-161b22?style=for-the-badge&logo=telegram&logoColor=00c8ff&labelColor=0d1117" />
+  <img alt="Telegram — @Daashamid" title="fastest way to reach me" src="assets/vendor/badge-contact-telegram.svg" />
 </a>
 <a href="https://x.com/Daashamid82">
-  <img title="occasionally" alt="X — @Daashamid82" src="https://img.shields.io/badge/X-%40Daashamid82-161b22?style=for-the-badge&logo=x&logoColor=00ff88&labelColor=0d1117" />
+  <img title="occasionally" alt="X — @Daashamid82" src="assets/vendor/badge-contact-x.svg" />
 </a>
 <a href="https://github.com/Daashamid">
-  <img title="you are already here" alt="GitHub — Daashamid" src="https://img.shields.io/badge/GitHub-Daashamid-161b22?style=for-the-badge&logo=github&logoColor=00ff88&labelColor=0d1117" />
+  <img title="you are already here" alt="GitHub — Daashamid" src="assets/vendor/badge-contact-github.svg" />
 </a>
 
 <br/>
