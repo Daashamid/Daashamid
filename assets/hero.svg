@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="240" viewBox="0 0 1000 240"
-     role="img" aria-label="HAMID.py — Python Developer, Linux, Security Learner">
-  <title>HAMID.py — Python Developer · Linux · Security Learner</title>
+     role="img" aria-label="HAMID.py — Python developer, Linux, learning networking">
+  <title>HAMID.py — Python developer · Linux · learning networking</title>
 
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
@@ -28,6 +28,15 @@
       <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
     </linearGradient>
 
+    <!-- diagonal specular streak, clipped to the letterforms -->
+    <linearGradient id="gloss" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="45%"  stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="52%"  stop-color="#ffffff" stop-opacity="0.72"/>
+      <stop offset="60%"  stop-color="#ffffff" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
     <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
       <stop offset="0%"   stop-color="#00ff88" stop-opacity="0.20"/>
       <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
@@ -39,8 +48,17 @@
       <stop offset="100%" stop-color="#000000" stop-opacity="0.38"/>
     </radialGradient>
 
+    <linearGradient id="chrome" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#ffffff" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.30"/>
+    </linearGradient>
+
+    <!-- two grids at different scales, drifting at different speeds: the depth cue -->
     <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
       <path d="M28 0H0v28" fill="none" stroke="#00ff88" stroke-opacity="0.055"/>
+    </pattern>
+    <pattern id="grid2" width="56" height="56" patternUnits="userSpaceOnUse">
+      <path d="M56 0H0v56" fill="none" stroke="#00c8ff" stroke-opacity="0.05"/>
     </pattern>
 
     <!-- CRT scanlines, barely there on purpose -->
@@ -52,6 +70,11 @@
       <feGaussianBlur stdDeviation="8"/>
     </filter>
 
+    <!-- one wordmark geometry, reused for the extrusion, the bloom and the shine mask,
+         so the layers can never drift out of register -->
+    <text id="wm" class="wm" x="62" y="132">HAMID.py</text>
+    <clipPath id="wmclip"><use href="#wm"/></clipPath>
+
     <clipPath id="card"><rect width="1000" height="240" rx="16"/></clipPath>
     <clipPath id="reelwin"><rect x="56" y="156" width="586" height="38"/></clipPath>
   </defs>
@@ -59,12 +82,32 @@
   <style>
     .mono { font-family: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code",
             Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .wm   { font-family: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code",
+            Menlo, Consolas, "DejaVu Sans Mono", monospace;
+            font-size: 66px; font-weight: 700; letter-spacing: 1.5px; }
     .blink { animation: blink 1.05s steps(1, end) infinite; }
     @keyframes blink { 0%, 55% { opacity: 1 } 56%, 100% { opacity: 0 } }
     .sweep { animation: sweep 7s ease-in-out infinite; }
     @keyframes sweep { 0% { transform: translateX(-420px) } 100% { transform: translateX(1000px) } }
     .pulse { animation: pulse 5.5s ease-in-out infinite; }
     @keyframes pulse { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
+    .live { animation: live 2.6s ease-in-out infinite; }
+    @keyframes live { 0%, 100% { opacity: .45 } 50% { opacity: 1 } }
+
+    /* parallax: each layer drifts exactly one pattern period, so it loops seamlessly */
+    .par1 { animation: par1 22s linear infinite; }
+    @keyframes par1 { 0% { transform: translate(0, 0) } 100% { transform: translate(-28px, -28px) } }
+    .par2 { animation: par2 38s linear infinite; }
+    @keyframes par2 { 0% { transform: translate(0, 0) } 100% { transform: translate(56px, 0) } }
+
+    /* light travelling across the letterforms — the shine rect is clipped to #wm */
+    .shine { animation: shine 7s ease-in-out infinite; }
+    @keyframes shine {
+      0%, 52%   { transform: translateX(0) }
+      92%, 100% { transform: translateX(780px) }
+    }
+    .edge { animation: edge 9s linear infinite; }
+    @keyframes edge { 0% { transform: translateX(0) } 100% { transform: translateX(1240px) } }
 
     /* The reel scrolls a stack of prompt lines past a 38px window: each line
        holds still for ~2.2s, then the whole stack slides up exactly one row.
@@ -82,27 +125,40 @@
 
   <g clip-path="url(#card)">
     <rect width="1000" height="240" fill="url(#bg)"/>
-    <rect width="1000" height="240" fill="url(#grid)"/>
+    <rect class="par2" x="-60" y="-60" width="1120" height="360" fill="url(#grid2)"/>
+    <rect class="par1" x="-32" y="-32" width="1064" height="304" fill="url(#grid)"/>
     <ellipse class="pulse" cx="180" cy="150" rx="420" ry="230" fill="url(#glow)"/>
     <rect class="sweep" width="420" height="240" fill="url(#sweep)"/>
 
     <!-- window chrome -->
     <rect width="1000" height="48" fill="#0d1117" fill-opacity="0.72"/>
-    <circle cx="34" cy="25" r="5" fill="#ff5f57"/>
-    <circle cx="54" cy="25" r="5" fill="#febc2e"/>
-    <circle cx="74" cy="25" r="5" fill="#28c840"/>
-    <text class="mono" x="98" y="30" font-size="13" fill="#6e7681"
-          letter-spacing="0.6">hamid@arch:~/profile</text>
-    <text class="mono" x="966" y="30" font-size="12" fill="#484f58"
-          text-anchor="end" letter-spacing="0.8">zsh — 120×30</text>
+    <rect width="1000" height="48" fill="url(#chrome)"/>
+    <circle cx="34" cy="25" r="5.5" fill="#ff5f57"/>
+    <circle cx="54" cy="25" r="5.5" fill="#febc2e"/>
+    <circle cx="74" cy="25" r="5.5" fill="#28c840"/>
+    <text class="mono" x="100" y="30" font-size="13.5" fill="#8b949e"
+          letter-spacing="0.5">hamid@arch<tspan fill="#484f58">:~/profile</tspan></text>
+    <text class="mono" x="966" y="30" font-size="13" fill="#6e7681"
+          text-anchor="end" letter-spacing="0.5"><tspan class="live"
+          fill="#28c840">●</tspan><tspan dx="8">zsh</tspan></text>
     <path d="M0 48h1000" stroke="#ffffff" stroke-opacity="0.07"/>
 
-    <!-- wordmark: blurred twin behind the sharp one for a soft phosphor glow -->
-    <g class="mono" font-size="66" font-weight="700" letter-spacing="1.5">
-      <text x="62" y="132" filter="url(#soft)" opacity="0.4"
-        ><tspan fill="#00ff88">HAMID</tspan><tspan fill="#00c8ff">.py</tspan></text>
-      <text x="62" y="132"
-        ><tspan fill="#f0f6fc">HAMID</tspan><tspan fill="url(#accent)">.py</tspan></text>
+    <!-- wordmark: soft phosphor bloom, then 8 offset copies as the extruded side
+         faces, then the sharp front face, then a specular streak clipped to it -->
+    <use href="#wm" filter="url(#soft)" opacity="0.42" fill="#00ff88"/>
+    <use href="#wm" x="9"  y="9"  fill="#021a13"/>
+    <use href="#wm" x="8"  y="8"  fill="#031e16"/>
+    <use href="#wm" x="7"  y="7"  fill="#042319"/>
+    <use href="#wm" x="6"  y="6"  fill="#05291d"/>
+    <use href="#wm" x="5"  y="5"  fill="#062f21"/>
+    <use href="#wm" x="4"  y="4"  fill="#073625"/>
+    <use href="#wm" x="3"  y="3"  fill="#083d29"/>
+    <use href="#wm" x="2"  y="2"  fill="#09452e"/>
+    <use href="#wm" x="1"  y="1"  fill="#0a4d33"/>
+    <text class="wm" x="62" y="132"
+      ><tspan fill="#f0f6fc">HAMID</tspan><tspan fill="url(#accent)">.py</tspan></text>
+    <g clip-path="url(#wmclip)">
+      <rect class="shine" x="-240" y="70" width="200" height="90" fill="url(#gloss)"/>
     </g>
 
     <g class="mono" clip-path="url(#reelwin)" font-size="17" letter-spacing="0.4">
@@ -114,17 +170,17 @@
 
         <text x="64" y="220"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
           dx="10">cat ~/stack.txt</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
-          fill="#00ff88" dx="12">python · linux · network+</tspan><tspan class="blink"
+          fill="#00ff88" dx="12">python · linux · git</tspan><tspan class="blink"
           fill="#00ff88" dx="10">▌</tspan></text>
 
         <text x="64" y="258"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
-          dx="10">./learn_security.sh</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
-          fill="#00ff88" dx="12">running...</tspan><tspan class="blink"
+          dx="10">echo</tspan><tspan fill="#7ee787"
+          dx="12">"Python is the one I'm actually good at."</tspan><tspan class="blink"
           fill="#00ff88" dx="10">▌</tspan></text>
 
         <text x="64" y="296"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
-          dx="10">echo</tspan><tspan fill="#7ee787"
-          dx="12">"Code. Break. Secure. Repeat."</tspan><tspan class="blink"
+          dx="10">cat ~/curious.txt</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
+          fill="#00ff88" dx="12">networking · security · iot</tspan><tspan class="blink"
           fill="#00ff88" dx="10">▌</tspan></text>
 
         <text x="64" y="334"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
@@ -137,16 +193,17 @@
     <!-- faint code texture, right side -->
     <g class="mono" font-size="12.5" fill="#00ff88" opacity="0.16" letter-spacing="0.3">
       <text x="676" y="82">class Hamid:</text>
-      <text x="696" y="104">stack = [python, bash]</text>
-      <text x="696" y="126">os    = linux</text>
-      <text x="696" y="148">next  = network+</text>
-      <text x="696" y="170">goal  = pentest</text>
+      <text x="696" y="104">good_at  = [python]</text>
+      <text x="696" y="126">ok_at    = [linux, git]</text>
+      <text x="696" y="148">learning = [network+, c]</text>
+      <text x="696" y="170">curious  = [security, iot]</text>
       <text x="676" y="200">while alive: learn()</text>
     </g>
 
     <rect width="1000" height="240" fill="url(#scan)"/>
     <rect width="1000" height="240" fill="url(#vig)"/>
     <path d="M0 0.5h1000" stroke="#ffffff" stroke-opacity="0.10"/>
+    <rect class="edge" x="-240" y="0" width="240" height="2" fill="url(#rule)"/>
     <rect y="236" width="1000" height="4" fill="url(#rule)"/>
   </g>
 

@@ -74,7 +74,7 @@ def esc(s: str) -> str:
 W, H = 500, 260
 
 
-def shell(uid: str, title: str, label: str, body: str) -> str:
+def shell(uid: str, path: str, label: str, body: str) -> str:
     """Wrap card content in the shared terminal-window chrome."""
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" \
 viewBox="0 0 {W} {H}" role="img" aria-label="{esc(label)}">
@@ -91,25 +91,41 @@ viewBox="0 0 {W} {H}" role="img" aria-label="{esc(label)}">
     <linearGradient id="fill{uid}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="{GREEN}"/><stop offset="100%" stop-color="{CYAN}"/>
     </linearGradient>
+    <linearGradient id="chrome{uid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25"/>
+    </linearGradient>
     <pattern id="grid{uid}" width="26" height="26" patternUnits="userSpaceOnUse">
       <path d="M26 0H0v26" fill="none" stroke="{GREEN}" stroke-opacity="0.045"/>
     </pattern>
     <clipPath id="card{uid}"><rect width="{W}" height="{H}" rx="12"/></clipPath>
   </defs>
   <style>
-    .m{uid} {{ font-family: {MONO}; font-size: 12.5px; }}
+    /* font-size lives on the wrapping group, not here: a CSS rule would override every
+       per-element font-size="…" presentation attribute and silently overflow the card.
+       Keep angle brackets out of this comment — SVG is parsed as XML, not HTML. */
+    .m{uid} {{ font-family: {MONO}; }}
+    .ed{uid} {{ animation: ed{uid} 9s linear infinite; }}
+    @keyframes ed{uid} {{
+      0%   {{ transform: translateX(0) }}
+      100% {{ transform: translateX({W + 200}px) }}
+    }}
   </style>
   <g clip-path="url(#card{uid})">
     <rect width="{W}" height="{H}" fill="url(#bg{uid})"/>
     <rect width="{W}" height="{H}" fill="url(#grid{uid})"/>
-    <rect width="{W}" height="34" fill="{CHROME}"/>
-    <circle cx="22" cy="17" r="4.5" fill="#ff5f57"/>
-    <circle cx="39" cy="17" r="4.5" fill="#febc2e"/>
-    <circle cx="56" cy="17" r="4.5" fill="#28c840"/>
-    <text class="m{uid}" x="{W // 2}" y="21" font-size="11" fill="{FAINT}"
-          text-anchor="middle" letter-spacing="0.5">{esc(title)}</text>
-    <path d="M0 34h{W}" stroke="{BORDER}" stroke-opacity="0.7"/>
-    <g class="m{uid}" letter-spacing="0.2">
+    <rect width="{W}" height="38" fill="{CHROME}"/>
+    <rect width="{W}" height="38" fill="url(#chrome{uid})"/>
+    <circle cx="24" cy="19" r="5" fill="#ff5f57"/>
+    <circle cx="43" cy="19" r="5" fill="#febc2e"/>
+    <circle cx="62" cy="19" r="5" fill="#28c840"/>
+    <text class="m{uid}" x="{W // 2}" y="24" font-size="12.5" text-anchor="middle"
+          letter-spacing="0.4"><tspan fill="{DIM}">hamid@arch</tspan\
+><tspan fill="{GREY}">: {esc(path)}</tspan></text>
+    <path d="M0 38h{W}" stroke="{BORDER}" stroke-opacity="0.8"/>
+    <path d="M0 0.5h{W}" stroke="#ffffff" stroke-opacity="0.09"/>
+    <rect class="ed{uid}" x="-200" y="0" width="200" height="2" fill="url(#rule{uid})"/>
+    <g class="m{uid}" letter-spacing="0.2" font-size="12.5">
 {body}
     </g>
     <rect x="0" y="{H - 3}" width="{W}" height="3" fill="url(#rule{uid})"/>
@@ -155,11 +171,14 @@ def stats_card(u: dict) -> str:
     source = (f"{total_bytes / 1_048_576:.1f} MB" if total_bytes >= 1_048_576
               else f"{total_bytes / 1024:.0f} KB")
 
+    # "private repos" rather than followers or a 1-year commit count: it is the number
+    # that actually explains a quiet public profile, and it does not read as a vanity
+    # metric that goes stale the moment someone unfollows.
     rows = [
         ("repositories", repos["totalCount"], "languages", len(langs)),
         ("source indexed", source, "stars earned",
          sum(r["stargazerCount"] for r in nodes)),
-        ("followers", u["followers"]["totalCount"],
+        ("still private", sum(1 for r in nodes if r["isPrivate"]),
          "last push", ago(max(pushes)) if pushes else "—"),
     ]
 
@@ -186,7 +205,7 @@ def stats_card(u: dict) -> str:
         f'<tspan fill="{CYAN}">hamid@arch</tspan><tspan fill="{GREY}">:~</tspan>'
         f'<tspan fill="{GREEN}">$ </tspan><tspan fill="{GREEN}">▌</tspan></text>',
     ]
-    return shell(uid, "stats — 80×24", f"{USER} in numbers", "\n".join(body))
+    return shell(uid, "~/stats", f"{USER} in numbers", "\n".join(body))
 
 
 TOP_N = 7
@@ -248,22 +267,32 @@ def langs_card(u: dict) -> str:
             f'      <text class="m{uid}" x="{x + 212}" y="{y}" fill="{FG}" '
             f'text-anchor="end">{pct:.1f}%</text>',
         ]
-    return shell(uid, "languages — 80×24", "Language distribution across all repos",
+    # Rust/Kotlin/Dart rank high here because AI wrote those repos. Say so on the card.
+    body.append(
+        f'      <text class="m{uid}" x="20" y="243" font-size="11" fill="{GREY}">'
+        f'# bytes on disk, not skill — see ./progress.sh</text>')
+    return shell(uid, "~/repos", "Language distribution across all repos",
                  "\n".join(body))
 
 
 # Hamid's own assessment — not derived from the API, edit here to change the card.
+# Deliberately not rounded up: Python is the only one he'd call solid.
 SKILLS = [
-    ("Python",     80, "OOP · files · bots · automation"),
-    ("Linux",      65, "bash · services · permissions"),
-    ("HTML / CSS", 60, "layout · responsive"),
-    ("Network+",   50, "TCP/IP · subnetting · DNS"),
-    ("C / C++",    35, "pointers · memory"),
-    ("Pentest",    25, "TryHackMe next →"),
+    ("Python",       80, "OOP · files · bots · automation"),
+    ("Linux",        45, "daily driver · bash · systemd basics"),
+    ("Git / GitHub", 40, "branch · remote · actions basics"),
+    ("Network+",     35, "TCP/IP · subnetting · DNS — studying"),
+    ("HTML / CSS",   30, "layout · responsive basics"),
+    ("C / C++",      25, "pointers · memory — university level"),
 ]
 
-SW, SH = 1000, 300
-BAR_X, BAR_W, BAR_H = 168, 400, 11
+# Languages that show up in the language card but are not skills: those repos were
+# AI-written. Saying so on the card is cheaper than being asked about it later.
+NOT_MINE = "rust · kotlin · dart"
+NEXT_UP = "networking depth · security basics · a little IoT"
+
+SW, SH = 1000, 356
+BAR_X, BAR_W, BAR_H = 168, 400, 12
 
 
 def skills_card() -> str:
@@ -273,16 +302,26 @@ def skills_card() -> str:
     for i, (name, pct, note) in enumerate(SKILLS):
         w = BAR_W * pct / 100
         mid = y - BAR_H / 2 - 1
+        r = BAR_H / 2
         # The fill rect is static so the bar can never misrepresent the number:
-        # only the shine moves, and it is clipped to the fill.
+        # only the shine moves, and it is clipped to the fill. The gloss overlay is
+        # what makes a flat rect read as a rounded, lit tube.
         rows += [
             f'      <text class="mk" x="28" y="{y}" fill="{DIM}">{esc(name)}</text>',
             f'      <clipPath id="c{i}"><rect x="{BAR_X}" y="{mid:.1f}" '
-            f'width="{w:.1f}" height="{BAR_H}" rx="{BAR_H / 2}"/></clipPath>',
+            f'width="{w:.1f}" height="{BAR_H}" rx="{r}"/></clipPath>',
+            f'      <rect x="{BAR_X}" y="{mid + 2:.1f}" width="{BAR_W}" height="{BAR_H}" '
+            f'rx="{r}" fill="#000000" fill-opacity="0.45"/>',
             f'      <rect x="{BAR_X}" y="{mid:.1f}" width="{BAR_W}" height="{BAR_H}" '
-            f'rx="{BAR_H / 2}" fill="{BAR_BG}"/>',
+            f'rx="{r}" fill="{BAR_BG}"/>',
+            f'      <rect x="{BAR_X}" y="{mid:.1f}" width="{BAR_W}" height="{BAR_H}" '
+            f'rx="{r}" fill="url(#trackk)"/>',
+            *(f'      <path d="M{BAR_X + BAR_W * t / 100} {mid:.1f}v{BAR_H}" '
+              f'stroke="#ffffff" stroke-opacity="0.05"/>' for t in (25, 50, 75)),
             f'      <rect x="{BAR_X}" y="{mid:.1f}" width="{w:.1f}" height="{BAR_H}" '
-            f'rx="{BAR_H / 2}" fill="url(#fillk)"/>',
+            f'rx="{r}" fill="url(#fillk)"/>',
+            f'      <rect x="{BAR_X}" y="{mid:.1f}" width="{w:.1f}" height="{BAR_H}" '
+            f'rx="{r}" fill="url(#glossk)"/>',
             f'      <g clip-path="url(#c{i})"><rect class="sh" x="{BAR_X - 110}" '
             f'y="{mid:.1f}" width="110" height="{BAR_H}" fill="url(#shinek)" '
             f'style="animation-delay:{0.42 * i:.2f}s"/></g>',
@@ -298,8 +337,14 @@ def skills_card() -> str:
         f'<tspan fill="{CYAN}">hamid@arch</tspan><tspan fill="{GREY}">:~</tspan>'
         f'<tspan fill="{GREEN}">$ </tspan><tspan fill="{FG}">./progress.sh</tspan>'
         f'<tspan fill="{GREY}" dx="16">#</tspan>'
-        f'<tspan fill="{FAINT}" dx="8">honest numbers, updated as they move</tspan></text>',
+        f'<tspan fill="{FAINT}" dx="8">self-assessed, not rounded up</tspan></text>',
         *rows,
+        f'      <path d="M28 {y - 6}h944" stroke="{BORDER}" stroke-opacity="0.5"/>',
+        f'      <text class="mk" x="28" y="{y + 18}" font-size="12" fill="{GREY}">'
+        f'# not on this list: <tspan fill="{FAINT}">{esc(NOT_MINE)}</tspan>'
+        f' — those repos were AI-written, I can read them, not write them</text>',
+        f'      <text class="mk" x="28" y="{y + 40}" font-size="12" fill="{GREY}">'
+        f'# next up: <tspan fill="{FAINT}">{esc(NEXT_UP)}</tspan></text>',
     ])
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{SW}" height="{SH}" \
 viewBox="0 0 {SW} {SH}" role="img" aria-label="Skill levels: \
@@ -325,31 +370,59 @@ viewBox="0 0 {SW} {SH}" role="img" aria-label="Skill levels: \
       <stop offset="50%" stop-color="#ffffff" stop-opacity="0.42"/>
       <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </linearGradient>
+    <linearGradient id="trackk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.5"/>
+      <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="glossk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.34"/>
+      <stop offset="44%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="56%" stop-color="#000000" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.3"/>
+    </linearGradient>
     <pattern id="gridk" width="26" height="26" patternUnits="userSpaceOnUse">
       <path d="M26 0H0v26" fill="none" stroke="{GREEN}" stroke-opacity="0.04"/>
     </pattern>
+    <linearGradient id="chromek" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25"/>
+    </linearGradient>
     <clipPath id="cardk"><rect width="{SW}" height="{SH}" rx="14"/></clipPath>
   </defs>
   <style>
-    .mk {{ font-family: {MONO}; font-size: 13px; letter-spacing: 0.2px; }}
+    /* see the note in shell(): font-size stays off the class so the per-element
+       font-size="…" attributes on the footnote lines are not overridden */
+    .mk {{ font-family: {MONO}; letter-spacing: 0.2px; }}
     .sh {{ animation: sh 5.2s ease-in-out infinite; }}
     @keyframes sh {{
       0%      {{ transform: translateX(0) }}
       55%,
       100%    {{ transform: translateX({BAR_W + 220}px) }}
     }}
+    .edge {{ animation: edge 9s linear infinite; }}
+    @keyframes edge {{
+      0%   {{ transform: translateX(0) }}
+      100% {{ transform: translateX({SW + 260}px) }}
+    }}
   </style>
   <g clip-path="url(#cardk)">
     <rect width="{SW}" height="{SH}" fill="url(#bgk)"/>
     <rect width="{SW}" height="{SH}" fill="url(#gridk)"/>
-    <rect width="{SW}" height="36" fill="{CHROME}"/>
-    <circle cx="26" cy="18" r="5" fill="#ff5f57"/>
-    <circle cx="45" cy="18" r="5" fill="#febc2e"/>
-    <circle cx="64" cy="18" r="5" fill="#28c840"/>
-    <text class="mk" x="{SW // 2}" y="22" font-size="11.5" fill="{FAINT}"
-          text-anchor="middle" letter-spacing="0.6">progress.sh — 120×24</text>
-    <path d="M0 36h{SW}" stroke="{BORDER}" stroke-opacity="0.7"/>
+    <rect width="{SW}" height="40" fill="{CHROME}"/>
+    <rect width="{SW}" height="40" fill="url(#chromek)"/>
+    <circle cx="28" cy="20" r="5.5" fill="#ff5f57"/>
+    <circle cx="49" cy="20" r="5.5" fill="#febc2e"/>
+    <circle cx="70" cy="20" r="5.5" fill="#28c840"/>
+    <text class="mk" x="{SW // 2}" y="25" font-size="12.5"
+          text-anchor="middle" letter-spacing="0.4"><tspan fill="{DIM}">hamid@arch</tspan\
+><tspan fill="{GREY}">: ~/progress</tspan></text>
+    <path d="M0 40h{SW}" stroke="{BORDER}" stroke-opacity="0.8"/>
+    <path d="M0 0.5h{SW}" stroke="#ffffff" stroke-opacity="0.09"/>
+    <rect class="edge" x="-260" y="0" width="260" height="2" fill="url(#rulek)"/>
+    <g font-size="13">
 {body}
+    </g>
     <rect x="0" y="{SH - 4}" width="{SW}" height="4" fill="url(#rulek)"/>
   </g>
   <rect x="0.5" y="0.5" width="{SW - 1}" height="{SH - 1}" rx="14" fill="none"

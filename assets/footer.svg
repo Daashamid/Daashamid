@@ -41,7 +41,7 @@
     <text class="fm" x="500" y="50" font-size="15" text-anchor="middle" letter-spacing="0.4">
       <tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc" dx="9">exit</tspan
       ><tspan fill="#484f58" dx="14">#</tspan><tspan fill="#6e7681" dx="7"
-      >thanks for scrolling — now go break something</tspan>
+      >thanks for scrolling — now go automate something</tspan>
     </text>
 
     <text class="fm" x="500" y="80" font-size="12.5" text-anchor="middle"

@@ -12,25 +12,40 @@
     <linearGradient id="fills" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0%" stop-color="#00ff88"/><stop offset="100%" stop-color="#00c8ff"/>
     </linearGradient>
+    <linearGradient id="chromes" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.25"/>
+    </linearGradient>
     <pattern id="grids" width="26" height="26" patternUnits="userSpaceOnUse">
       <path d="M26 0H0v26" fill="none" stroke="#00ff88" stroke-opacity="0.045"/>
     </pattern>
     <clipPath id="cards"><rect width="500" height="260" rx="12"/></clipPath>
   </defs>
   <style>
-    .ms { font-family: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 12.5px; }
+    /* font-size lives on the wrapping group, not here: a CSS rule would override every
+       per-element font-size="…" presentation attribute and silently overflow the card.
+       Keep angle brackets out of this comment — SVG is parsed as XML, not HTML. */
+    .ms { font-family: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, "DejaVu Sans Mono", monospace; }
+    .eds { animation: eds 9s linear infinite; }
+    @keyframes eds {
+      0%   { transform: translateX(0) }
+      100% { transform: translateX(700px) }
+    }
   </style>
   <g clip-path="url(#cards)">
     <rect width="500" height="260" fill="url(#bgs)"/>
     <rect width="500" height="260" fill="url(#grids)"/>
-    <rect width="500" height="34" fill="#0d1117"/>
-    <circle cx="22" cy="17" r="4.5" fill="#ff5f57"/>
-    <circle cx="39" cy="17" r="4.5" fill="#febc2e"/>
-    <circle cx="56" cy="17" r="4.5" fill="#28c840"/>
-    <text class="ms" x="250" y="21" font-size="11" fill="#6e7681"
-          text-anchor="middle" letter-spacing="0.5">stats — 80×24</text>
-    <path d="M0 34h500" stroke="#30363d" stroke-opacity="0.7"/>
-    <g class="ms" letter-spacing="0.2">
+    <rect width="500" height="38" fill="#0d1117"/>
+    <rect width="500" height="38" fill="url(#chromes)"/>
+    <circle cx="24" cy="19" r="5" fill="#ff5f57"/>
+    <circle cx="43" cy="19" r="5" fill="#febc2e"/>
+    <circle cx="62" cy="19" r="5" fill="#28c840"/>
+    <text class="ms" x="250" y="24" font-size="12.5" text-anchor="middle"
+          letter-spacing="0.4"><tspan fill="#8b949e">hamid@arch</tspan><tspan fill="#484f58">: ~/stats</tspan></text>
+    <path d="M0 38h500" stroke="#30363d" stroke-opacity="0.8"/>
+    <path d="M0 0.5h500" stroke="#ffffff" stroke-opacity="0.09"/>
+    <rect class="eds" x="-200" y="0" width="200" height="2" fill="url(#rules)"/>
+    <g class="ms" letter-spacing="0.2" font-size="12.5">
       <text class="ms" x="20" y="60"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">./stats.sh --summary</tspan></text>
       <text class="ms" x="20" y="92" fill="#8b949e">repositories</text><text class="ms" x="210" y="92" fill="#00ff88" text-anchor="end" font-weight="600">11</text>
       <text class="ms" x="270" y="92" fill="#8b949e">languages</text><text class="ms" x="460" y="92" fill="#00ff88" text-anchor="end" font-weight="600">12</text>
@@ -38,7 +53,7 @@
       <text class="ms" x="20" y="126" fill="#8b949e">source indexed</text><text class="ms" x="210" y="126" fill="#00ff88" text-anchor="end" font-weight="600">3.4 MB</text>
       <text class="ms" x="270" y="126" fill="#8b949e">stars earned</text><text class="ms" x="460" y="126" fill="#00ff88" text-anchor="end" font-weight="600">2</text>
       <path d="M20 135h460" stroke="#30363d" stroke-opacity="0.45"/>
-      <text class="ms" x="20" y="160" fill="#8b949e">followers</text><text class="ms" x="210" y="160" fill="#00ff88" text-anchor="end" font-weight="600">5</text>
+      <text class="ms" x="20" y="160" fill="#8b949e">still private</text><text class="ms" x="210" y="160" fill="#00ff88" text-anchor="end" font-weight="600">8</text>
       <text class="ms" x="270" y="160" fill="#8b949e">last push</text><text class="ms" x="460" y="160" fill="#00ff88" text-anchor="end" font-weight="600">today</text>
       <path d="M20 169h460" stroke="#30363d" stroke-opacity="0.45"/>
       <text class="ms" x="20" y="202" fill="#6e7681" font-size="11.5">since jul 2025</text>
