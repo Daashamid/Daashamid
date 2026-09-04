@@ -9,7 +9,7 @@
 <p>
   <img alt="Followers" src="https://img.shields.io/github/followers/Daashamid?label=FOLLOWERS&style=flat-square&color=00ff88&labelColor=0d1117" />
   <img alt="Based in Iran" src="https://img.shields.io/badge/IRAN-0d1117?style=flat-square&logo=googlemaps&logoColor=00ff88" />
-  <img alt="Current focus" src="https://img.shields.io/badge/FOCUS-python%20%C2%B7%20linux%20%C2%B7%20security-0d1117?style=flat-square&logo=python&logoColor=00ff88" />
+  <img alt="Current focus" src="https://img.shields.io/badge/FOCUS-python%20%C2%B7%20linux%20%C2%B7%20security-161b22?style=flat-square&logo=python&logoColor=00ff88&labelColor=0d1117" />
   <a href="https://x.com/Daashamid82"><img alt="X — @Daashamid82" src="https://img.shields.io/badge/@Daashamid82-0d1117?style=flat-square&logo=x&logoColor=white" /></a>
 </p>
 
@@ -28,7 +28,7 @@ backlights, repetitive clicks — and I'm walking that habit toward security wor
 
 ```python
 class Hamid:
-    """Python dev · Linux native · security in progress."""
+    """Python dev · Linux · security in progress."""
 
     username = "Daashamid"
     location = "Iran"
@@ -190,6 +190,6 @@ Pentest      ███░░░░░░░░░  25%   TryHackMe next →
 
 </div>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:04140d,50:0b1220,100:05070a&height=120&section=footer" alt="" width="100%" />
+<img src="assets/footer.svg" alt="$ exit — thanks for scrolling" width="100%" />
 
 
