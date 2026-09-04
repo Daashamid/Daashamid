@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="340" viewBox="0 0 520 340"
+     role="img" aria-label="Terminal session: whoami, focus, projects and learning status">
+  <title>hamid@arch — terminal</title>
+
+  <defs>
+    <linearGradient id="tbg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#0a0e14"/>
+      <stop offset="100%" stop-color="#050a10"/>
+    </linearGradient>
+    <linearGradient id="trule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#00ff88" stop-opacity="0"/>
+      <stop offset="30%"  stop-color="#00ff88" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="tcard"><rect width="520" height="340" rx="12"/></clipPath>
+  </defs>
+
+  <style>
+    .m  { font-family: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code",
+          Menlo, Consolas, "DejaVu Sans Mono", monospace; font-size: 12.5px; }
+    .bk { animation: bk 1.05s steps(1, end) infinite; }
+    @keyframes bk { 0%, 55% { opacity: 1 } 56%, 100% { opacity: 0 } }
+  </style>
+
+  <g clip-path="url(#tcard)">
+    <rect width="520" height="340" fill="url(#tbg)"/>
+
+    <!-- title bar -->
+    <rect width="520" height="36" fill="#0d1117"/>
+    <circle cx="24" cy="18" r="4.5" fill="#ff5f57"/>
+    <circle cx="42" cy="18" r="4.5" fill="#febc2e"/>
+    <circle cx="60" cy="18" r="4.5" fill="#28c840"/>
+    <text class="m" x="260" y="22" font-size="11.5" fill="#6e7681" text-anchor="middle"
+          letter-spacing="0.5">bash — 80×24</text>
+    <path d="M0 36h520" stroke="#30363d" stroke-opacity="0.7"/>
+
+    <g class="m" letter-spacing="0.2">
+      <!-- whoami -->
+      <text x="22" y="66"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">whoami</tspan></text>
+      <text x="22" y="87" fill="#8b949e">hamid · python developer · iran</text>
+
+      <!-- focus -->
+      <text x="22" y="118"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">cat ~/.focus</tspan></text>
+      <text x="22" y="139" fill="#8b949e">python <tspan fill="#00ff88">→</tspan> linux <tspan
+        fill="#00ff88">→</tspan> network+ <tspan fill="#00ff88">→</tspan> pentest</text>
+
+      <!-- projects -->
+      <text x="22" y="170"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">ls ~/projects</tspan></text>
+      <text x="22" y="191" fill="#79c0ff">auto-wifi-biruni    backlight-keyboard</text>
+
+      <!-- learning service -->
+      <text x="22" y="222"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">systemctl status learning</tspan></text>
+      <text x="22" y="243"><tspan fill="#28c840">●</tspan><tspan fill="#8b949e" dx="6"
+        >learning.service — </tspan><tspan fill="#00ff88">active (running)</tspan></text>
+      <text x="46" y="263" fill="#6e7681">since 2025-07 · restarts: many · failures: 0</text>
+      <text x="46" y="283" fill="#6e7681">next: TryHackMe → Jr Pentester</text>
+
+      <!-- live prompt -->
+      <text x="22" y="314"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan></text>
+      <rect class="bk" x="126" y="303" width="8" height="14" fill="#00ff88"/>
+    </g>
+
+    <rect x="0" y="337" width="520" height="3" fill="url(#trule)"/>
+  </g>
+
+  <rect x="0.5" y="0.5" width="519" height="339" rx="12"
+        fill="none" stroke="#30363d" stroke-opacity="0.85" stroke-width="1"/>
+</svg>
