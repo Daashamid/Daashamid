@@ -1,0 +1,55 @@
+name: cards
+
+# Refreshes assets/stats.svg + assets/langs.svg from the GitHub API.
+# The SVGs are committed to the repo, so the README renders even if this
+# workflow never runs — this only keeps the numbers current.
+#
+# The default GITHUB_TOKEN cannot see private repositories, and most of
+# Hamid's work is still private, so a refresh without a personal token
+# would replace real numbers with public-only ones. This job therefore
+# no-ops unless a CARDS_TOKEN secret (classic token, `repo` scope) exists.
+
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: cards
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Render cards
+        env:
+          GH_TOKEN: ${{ secrets.CARDS_TOKEN }}
+          PROFILE_USER: Daashamid
+        run: |
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "::notice::CARDS_TOKEN is not set - keeping the committed cards."
+            exit 0
+          fi
+          python3 scripts/gen_cards.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- assets; then
+            echo "no change"
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git commit -m "chore(cards): refresh stats and languages"
+          git push

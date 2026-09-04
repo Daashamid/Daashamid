@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="520" height="340" viewBox="0 0 520 340"
-     role="img" aria-label="Terminal session: whoami, focus, projects and learning status">
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="640" viewBox="0 0 520 640"
+     role="img" aria-label="Terminal session: whoami, focus, projects, toolbox, lessons, learning status">
   <title>hamid@arch — terminal</title>
 
   <defs>
@@ -12,7 +12,17 @@
       <stop offset="30%"  stop-color="#00ff88" stop-opacity="0.75"/>
       <stop offset="100%" stop-color="#00c8ff" stop-opacity="0"/>
     </linearGradient>
-    <clipPath id="tcard"><rect width="520" height="340" rx="12"/></clipPath>
+    <radialGradient id="tglow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%"   stop-color="#00ff88" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="tgrid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <path d="M26 0H0v26" fill="none" stroke="#00ff88" stroke-opacity="0.04"/>
+    </pattern>
+    <pattern id="tscan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="#ffffff" fill-opacity="0.014"/>
+    </pattern>
+    <clipPath id="tcard"><rect width="520" height="640" rx="12"/></clipPath>
   </defs>
 
   <style>
@@ -23,7 +33,9 @@
   </style>
 
   <g clip-path="url(#tcard)">
-    <rect width="520" height="340" fill="url(#tbg)"/>
+    <rect width="520" height="640" fill="url(#tbg)"/>
+    <rect width="520" height="640" fill="url(#tgrid)"/>
+    <ellipse cx="90" cy="600" rx="360" ry="240" fill="url(#tglow)"/>
 
     <!-- title bar -->
     <rect width="520" height="36" fill="#0d1117"/>
@@ -33,41 +45,58 @@
     <text class="m" x="260" y="22" font-size="11.5" fill="#6e7681" text-anchor="middle"
           letter-spacing="0.5">bash — 80×24</text>
     <path d="M0 36h520" stroke="#30363d" stroke-opacity="0.7"/>
-
     <g class="m" letter-spacing="0.2">
-      <!-- whoami -->
-      <text x="22" y="66"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+      <text x="22" y="68"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
         ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">whoami</tspan></text>
-      <text x="22" y="87" fill="#8b949e">hamid · python developer · iran</text>
+      <text x="22" y="89" fill="#8b949e">hamid · python developer · iran</text>
 
-      <!-- focus -->
-      <text x="22" y="118"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+      <text x="22" y="120"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
         ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">cat ~/.focus</tspan></text>
-      <text x="22" y="139" fill="#8b949e">python <tspan fill="#00ff88">→</tspan> linux <tspan
+      <text x="22" y="141" fill="#8b949e">python <tspan fill="#00ff88">→</tspan> linux <tspan
         fill="#00ff88">→</tspan> network+ <tspan fill="#00ff88">→</tspan> pentest</text>
 
-      <!-- projects -->
-      <text x="22" y="170"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+      <text x="22" y="172"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
         ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">ls ~/projects</tspan></text>
-      <text x="22" y="191" fill="#79c0ff">auto-wifi-biruni    backlight-keyboard</text>
+      <text x="22" y="193" fill="#79c0ff">auto-wifi-biruni    backlight-keyboard</text>
 
-      <!-- learning service -->
-      <text x="22" y="222"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+      <text x="22" y="224"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">cat ~/.toolbox</tspan></text>
+      <text x="22" y="245" fill="#8b949e">python · bash · git · systemd</text>
+      <text x="22" y="265" fill="#8b949e">selenium · evdev · requests</text>
+
+      <text x="22" y="296"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">tail -3 ~/.lessons</tspan></text>
+      <text x="22" y="317" fill="#6e7681"><tspan fill="#00ff88">&gt;</tspan><tspan dx="6"
+        >read the error before you google it</tspan></text>
+      <text x="22" y="337" fill="#6e7681"><tspan fill="#00ff88">&gt;</tspan><tspan dx="6"
+        >if it runs once, put it on a timer</tspan></text>
+      <text x="22" y="357" fill="#6e7681"><tspan fill="#00ff88">&gt;</tspan><tspan dx="6"
+        >nothing is learned until it breaks</tspan></text>
+
+      <text x="22" y="388"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
         ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">systemctl status learning</tspan></text>
-      <text x="22" y="243"><tspan fill="#28c840">●</tspan><tspan fill="#8b949e" dx="6"
+      <text x="22" y="409"><tspan fill="#28c840">●</tspan><tspan fill="#8b949e" dx="6"
         >learning.service — </tspan><tspan fill="#00ff88">active (running)</tspan></text>
-      <text x="46" y="263" fill="#6e7681">since 2025-07 · restarts: many · failures: 0</text>
-      <text x="46" y="283" fill="#6e7681">next: TryHackMe → Jr Pentester</text>
+      <text x="46" y="429" fill="#6e7681">since 2025-07 · restarts: many · failures: 0</text>
+      <text x="46" y="449" fill="#6e7681">next: TryHackMe → Jr Pentester</text>
 
-      <!-- live prompt -->
-      <text x="22" y="314"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
-        ><tspan fill="#00ff88">$ </tspan></text>
-      <rect class="bk" x="126" y="303" width="8" height="14" fill="#00ff88"/>
+      <text x="22" y="480"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">ls -la ~/.ssh</tspan></text>
+      <text x="22" y="501" fill="#6e7681">nice try :)</text>
+
+      <text x="22" y="532"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan fill="#f0f6fc">cat ~/.setup</tspan></text>
+      <text x="22" y="553" fill="#8b949e">os: linux · shell: zsh · editor: vscode</text>
+      <text x="22" y="573" fill="#8b949e">wm: whatever tiles · theme: green on black</text>
+
+      <text x="22" y="604"><tspan fill="#00c8ff">hamid@arch</tspan><tspan fill="#484f58">:~</tspan
+        ><tspan fill="#00ff88">$ </tspan><tspan class="bk" fill="#00ff88">▌</tspan></text>
     </g>
-
-    <rect x="0" y="337" width="520" height="3" fill="url(#trule)"/>
+    <rect width="520" height="640" fill="url(#tscan)"/>
+    <path d="M0 0.5h520" stroke="#ffffff" stroke-opacity="0.08"/>
+    <rect x="0" y="637" width="520" height="3" fill="url(#trule)"/>
   </g>
 
-  <rect x="0.5" y="0.5" width="519" height="339" rx="12"
-        fill="none" stroke="#30363d" stroke-opacity="0.85" stroke-width="1"/>
+  <rect x="0.5" y="0.5" width="519" height="639" rx="12"
+        fill="none" stroke="#30363d" stroke-opacity="0.85"/>
 </svg>

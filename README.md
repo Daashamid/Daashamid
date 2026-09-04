@@ -2,10 +2,6 @@
 
 <img src="assets/hero.svg" alt="HAMID.py — Python Developer · Linux · Security Learner" width="100%" />
 
-<a href="https://github.com/Daashamid">
-  <img alt="$ whoami -> hamid" src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=20&duration=3200&pause=900&color=00FF88&center=true&vCenter=true&width=720&height=45&lines=%24+whoami+-%3E+hamid;%24+cat+stack.txt+-%3E+python+%7C+linux+%7C+network%2B;%24+.%2Flearn_security.sh+-%3E+running...;%24+echo+%22Code.+Break.+Secure.+Repeat.%22" />
-</a>
-
 <p>
   <img alt="Followers" src="https://img.shields.io/github/followers/Daashamid?label=FOLLOWERS&style=flat-square&color=00ff88&labelColor=0d1117" />
   <img alt="Based in Iran" src="https://img.shields.io/badge/IRAN-0d1117?style=flat-square&logo=googlemaps&logoColor=00ff88" />
@@ -56,7 +52,7 @@ class Hamid:
 </td>
 <td width="43%" valign="top">
 
-<img src="assets/terminal.svg" alt="Terminal session: whoami, focus, projects, learning status" width="100%" />
+<img src="assets/terminal.svg" alt="Terminal session: whoami, focus, projects, toolbox, lessons, learning status" width="100%" />
 
 <div align="center">
 
@@ -132,14 +128,11 @@ Keyboard-backlight controller for Linux. Listens to the Insert key through `evde
 
 ## ▍`$ ./progress.sh`
 
-```console
-Python       ██████████░░  80%   OOP · files · bots · automation
-Linux        ████████░░░░  65%   bash · services · permissions
-HTML / CSS   ███████░░░░░  60%   layout · responsive
-Network+     ██████░░░░░░  50%   TCP/IP · subnetting · DNS
-C / C++      ████░░░░░░░░  35%   pointers · memory
-Pentest      ███░░░░░░░░░  25%   TryHackMe next →
-```
+<div align="center">
+
+<img src="assets/skills.svg" alt="Python 80%, Linux 65%, HTML/CSS 60%, Network+ 50%, C/C++ 35%, Pentest 25%" width="100%" />
+
+</div>
 
 - [x] Python scripts that actually run unattended on Linux
 - [x] Git and GitHub as daily tools, not a chore
@@ -152,12 +145,14 @@ Pentest      ███░░░░░░░░░  25%   TryHackMe next →
 
 <div align="center">
 
-<img width="49%" alt="GitHub stats" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=Daashamid&theme=github_dark" />
-<img width="49%" alt="Repos per language" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=Daashamid&theme=github_dark" />
+<img width="49%" alt="Profile in numbers: repositories, languages, source indexed, stars, followers, last push" src="assets/stats.svg" />
+<img width="49%" alt="Language distribution across all repositories" src="assets/langs.svg" />
 
 </div>
 
 ## ▍`$ ./snake.sh`
+
+> Quiet grid — the account is barely a year old, and it fills in as I go.
 
 <div align="center">
 

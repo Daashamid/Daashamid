@@ -33,13 +33,27 @@
       <stop offset="100%" stop-color="#00ff88" stop-opacity="0"/>
     </radialGradient>
 
+    <!-- corner falloff: gives the flat card some depth -->
+    <radialGradient id="vig" cx="0.5" cy="0.45" r="0.78">
+      <stop offset="56%"  stop-color="#000000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.38"/>
+    </radialGradient>
+
     <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
-      <path d="M28 0H0v28" fill="none" stroke="#00ff88" stroke-opacity="0.055" stroke-width="1"/>
+      <path d="M28 0H0v28" fill="none" stroke="#00ff88" stroke-opacity="0.055"/>
     </pattern>
 
-    <clipPath id="card">
-      <rect x="0" y="0" width="1000" height="240" rx="16"/>
-    </clipPath>
+    <!-- CRT scanlines, barely there on purpose -->
+    <pattern id="scan" width="4" height="4" patternUnits="userSpaceOnUse">
+      <rect width="4" height="2" fill="#ffffff" fill-opacity="0.016"/>
+    </pattern>
+
+    <filter id="soft" x="-30%" y="-70%" width="160%" height="280%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+
+    <clipPath id="card"><rect width="1000" height="240" rx="16"/></clipPath>
+    <clipPath id="reelwin"><rect x="56" y="156" width="586" height="38"/></clipPath>
   </defs>
 
   <style>
@@ -51,48 +65,91 @@
     @keyframes sweep { 0% { transform: translateX(-420px) } 100% { transform: translateX(1000px) } }
     .pulse { animation: pulse 5.5s ease-in-out infinite; }
     @keyframes pulse { 0%, 100% { opacity: .55 } 50% { opacity: 1 } }
+
+    /* The reel scrolls a stack of prompt lines past a 38px window: each line
+       holds still for ~2.2s, then the whole stack slides up exactly one row.
+       Line 5 repeats line 1, so the wrap back to 0 is invisible. Nothing here
+       encodes a value, so a renderer that freezes it just shows one prompt. */
+    .reel { animation: reel 10.4s infinite; }
+    @keyframes reel {
+      0%,   21% { transform: translateY(0) }
+      25%,  46% { transform: translateY(-38px) }
+      50%,  71% { transform: translateY(-76px) }
+      75%,  96% { transform: translateY(-114px) }
+      100%      { transform: translateY(-152px) }
+    }
   </style>
 
   <g clip-path="url(#card)">
     <rect width="1000" height="240" fill="url(#bg)"/>
     <rect width="1000" height="240" fill="url(#grid)"/>
     <ellipse class="pulse" cx="180" cy="150" rx="420" ry="230" fill="url(#glow)"/>
-    <rect class="sweep" x="0" y="0" width="420" height="240" fill="url(#sweep)"/>
+    <rect class="sweep" width="420" height="240" fill="url(#sweep)"/>
 
-    <!-- terminal chrome -->
-    <circle cx="34" cy="28" r="5" fill="#ff5f57"/>
-    <circle cx="54" cy="28" r="5" fill="#febc2e"/>
-    <circle cx="74" cy="28" r="5" fill="#28c840"/>
-    <text class="mono" x="98" y="33" font-size="13" fill="#6e7681"
+    <!-- window chrome -->
+    <rect width="1000" height="48" fill="#0d1117" fill-opacity="0.72"/>
+    <circle cx="34" cy="25" r="5" fill="#ff5f57"/>
+    <circle cx="54" cy="25" r="5" fill="#febc2e"/>
+    <circle cx="74" cy="25" r="5" fill="#28c840"/>
+    <text class="mono" x="98" y="30" font-size="13" fill="#6e7681"
           letter-spacing="0.6">hamid@arch:~/profile</text>
-    <path d="M0 50h1000" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/>
+    <text class="mono" x="966" y="30" font-size="12" fill="#484f58"
+          text-anchor="end" letter-spacing="0.8">zsh — 120×30</text>
+    <path d="M0 48h1000" stroke="#ffffff" stroke-opacity="0.07"/>
 
-    <!-- wordmark -->
-    <text class="mono" x="62" y="142" font-size="66" font-weight="700" letter-spacing="1.5">
-      <tspan fill="#f0f6fc">HAMID</tspan><tspan fill="url(#accent)">.py</tspan>
-    </text>
-
-    <!-- strapline -->
-    <text class="mono" x="66" y="184" font-size="16.5" letter-spacing="0.4">
-      <tspan fill="#00ff88">$</tspan><tspan fill="#8b949e" dx="9">python developer</tspan
-      ><tspan fill="#30363d" dx="9">·</tspan><tspan fill="#8b949e" dx="9">linux</tspan
-      ><tspan fill="#30363d" dx="9">·</tspan><tspan fill="#8b949e" dx="9">security learner</tspan>
-    </text>
-    <rect class="blink" x="529" y="171" width="9" height="17" fill="#00ff88"/>
-
-    <!-- faint code texture, right side -->
-    <g class="mono" font-size="12.5" fill="#00ff88" opacity="0.12" letter-spacing="0.3">
-      <text x="672" y="78">class Hamid:</text>
-      <text x="692" y="100">stack = [python, bash]</text>
-      <text x="692" y="122">os    = linux</text>
-      <text x="692" y="144">next  = network+</text>
-      <text x="692" y="166">goal  = pentest</text>
-      <text x="672" y="196">while alive: learn()</text>
+    <!-- wordmark: blurred twin behind the sharp one for a soft phosphor glow -->
+    <g class="mono" font-size="66" font-weight="700" letter-spacing="1.5">
+      <text x="62" y="132" filter="url(#soft)" opacity="0.4"
+        ><tspan fill="#00ff88">HAMID</tspan><tspan fill="#00c8ff">.py</tspan></text>
+      <text x="62" y="132"
+        ><tspan fill="#f0f6fc">HAMID</tspan><tspan fill="url(#accent)">.py</tspan></text>
     </g>
 
-    <rect x="0" y="236" width="1000" height="4" fill="url(#rule)"/>
+    <g class="mono" clip-path="url(#reelwin)" font-size="17" letter-spacing="0.4">
+      <g class="reel">
+        <text x="64" y="182"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
+          dx="10">whoami</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
+          fill="#00ff88" dx="12">hamid</tspan><tspan class="blink" fill="#00ff88"
+          dx="10">▌</tspan></text>
+
+        <text x="64" y="220"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
+          dx="10">cat ~/stack.txt</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
+          fill="#00ff88" dx="12">python · linux · network+</tspan><tspan class="blink"
+          fill="#00ff88" dx="10">▌</tspan></text>
+
+        <text x="64" y="258"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
+          dx="10">./learn_security.sh</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
+          fill="#00ff88" dx="12">running...</tspan><tspan class="blink"
+          fill="#00ff88" dx="10">▌</tspan></text>
+
+        <text x="64" y="296"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
+          dx="10">echo</tspan><tspan fill="#7ee787"
+          dx="12">"Code. Break. Secure. Repeat."</tspan><tspan class="blink"
+          fill="#00ff88" dx="10">▌</tspan></text>
+
+        <text x="64" y="334"><tspan fill="#00ff88">$</tspan><tspan fill="#f0f6fc"
+          dx="10">whoami</tspan><tspan fill="#00c8ff" dx="12">→</tspan><tspan
+          fill="#00ff88" dx="12">hamid</tspan><tspan class="blink" fill="#00ff88"
+          dx="10">▌</tspan></text>
+      </g>
+    </g>
+
+    <!-- faint code texture, right side -->
+    <g class="mono" font-size="12.5" fill="#00ff88" opacity="0.16" letter-spacing="0.3">
+      <text x="676" y="82">class Hamid:</text>
+      <text x="696" y="104">stack = [python, bash]</text>
+      <text x="696" y="126">os    = linux</text>
+      <text x="696" y="148">next  = network+</text>
+      <text x="696" y="170">goal  = pentest</text>
+      <text x="676" y="200">while alive: learn()</text>
+    </g>
+
+    <rect width="1000" height="240" fill="url(#scan)"/>
+    <rect width="1000" height="240" fill="url(#vig)"/>
+    <path d="M0 0.5h1000" stroke="#ffffff" stroke-opacity="0.10"/>
+    <rect y="236" width="1000" height="4" fill="url(#rule)"/>
   </g>
 
   <rect x="0.5" y="0.5" width="999" height="239" rx="16"
-        fill="none" stroke="#30363d" stroke-opacity="0.85" stroke-width="1"/>
+        fill="none" stroke="#30363d" stroke-opacity="0.85"/>
 </svg>
